@@ -163,20 +163,6 @@ button:hover {
         backdrop-filter: blur(10px);
     }
 }
-
-.input-group select {
-    background: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda sutil */
-    color: #fff; /* Texto branco */
-    border-radius: 8px; /* Bordas arredondadas */
-    padding: 10px; /* Espaçamento interno */
-    font-size: 16px; /* Tamanho da fonte */
-    outline: none; /* Remove o contorno padrão */
-    appearance: none; /* Remove o estilo padrão do navegador */
-    -webkit-appearance: none; /* Para compatibilidade com Safari */
-    -moz-appearance: none; /* Para compatibilidade com Firefox */
-}
-
 .input-group select {
     background: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
     border: 1px solid rgba(255, 255, 255, 0.3); /* Borda sutil */
@@ -198,4 +184,75 @@ button:hover {
 .input-group select option {
     background: #333; /* Fundo escuro para as opções */
     color: #fff; /* Texto branco */
+}
+/* Melhorias na aparência */
+.loading {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffcc00;
+    margin-top: 10px;
+}
+
+button:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+}
+
+/* Melhor contraste para a seção de edição */
+.edit-section {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Melhor visibilidade dos inputs */
+.input-group input {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Adicionando efeito hover ao botão editar */
+button:hover {
+    filter: brightness(1.2);
+}
+/* Melhorias na aparência */
+.loading {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffcc00;
+    margin-top: 10px;
+}
+
+button:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+}
+
+/* Melhor contraste para a seção de edição */
+.edit-section {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Melhor visibilidade dos inputs */
+.input-group input {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Adicionando efeito hover ao botão editar */
+button:hover {
+    filter: brightness(1.2);
+}
+
+/* Adicionando espaçamento entre o botão e o título h3 */
+button[onclick="habilitarEdicao()"] {
+    margin-bottom: 20px; /* Ajuste conforme necessário */
 }
