@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ff1c1c"> <!-- Cor da barra de endereço em dispositivos móveis -->
+    <meta name="description" content="Calculadora de Potência FHC">
+    <meta name="apple-mobile-web-app-capable" content="yes"> <!-- Habilita instalação como app no iOS -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> <!-- Barra de status no iOS -->
+    <link rel="stylesheet" href="style.css"> <!-- Link para o arquivo CSS -->
+    <link rel="manifest" href="manifest.json"> <!-- Manifesto para instalação como app -->
+    <title>Calculadora de Potência FHC</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Calculadora de Potência FHC</h2>
+        <div class="input-group">
+            <label for="entradaCA">Potência de entrada CA (dB):</label>
+            <input type="number" id="entradaCA">
+        </div>
+        <div class="input-group">
+            <label for="entradaCB">Potência de entrada CB (dB):</label>
+            <input type="number" id="entradaCB">
+        </div>
+        <div class="input-group">
+            <label for="entradaRX">Potência de entrada RX (dB):</label>
+            <input type="number" id="entradaRX">
+        </div>
+        <div class="input-group">
+            <label for="metragem">Metragem de cabo até o ponto (m):</label>
+            <input type="number" id="metragem">
+        </div>
+        <div id="perdasPorMetro">
+            <h3>Perdas por Metro:</h3>
+            <p>CA: <span id="perdaCAValue">0.16</span> dB/m</p>
+            <p>CB: <span id="perdaCBValue">0.05</span> dB/m</p>
+            <p>RX: <span id="perdaRXValue">0.02</span> dB/m</p>
+            <button onclick="habilitarEdicao()">Editar perdas por Metro</button>
+            <div class="edit-section" id="editSection">
+                <div class="input-group">
+                    <label for="perdaCAInput">CA:</label>
+                    <input type="number" id="perdaCAInput" placeholder="0.16 dB/m">
+                </div>
+                <div class="input-group">
+                    <label for="perdaCBInput">CB:</label>
+                    <input type="number" id="perdaCBInput" placeholder="0.05 dB/m">
+                </div>
+                <div class="input-group">
+                    <label for="perdaRXInput">RX:</label>
+                    <input type="number" id="perdaRXInput" placeholder="0.02 dB/m">
+                </div>
+                <button onclick="salvarEdicao()">Salvar</button>
+            </div>
+        </div>
+        <div class="input-group">
+            <label for="quantidadePassivos">Quantidade de componentes passivos:</label>
+            <select id="quantidadePassivos" onchange="atualizarPassivos()">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+        </div>
+        <p class="aviso-passivo">Os valores de perda ao lado do nome se referem à saída OUT.</p>
+        <div id="passivosContainer"></div>
+        <div class="input-group">
+            <label for="quantidadeTerminais">Quantidade de terminais:</label>
+            <select id="quantidadeTerminais">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+        </div>
+        <button onclick="calcularPotencia()">Calcular</button>
+        <div id="aviso" class="aviso">Preencha todos os campos para calcular</div>
+        <div class="results">
+            <h3>Resultados:</h3>
+            <p>Potência de saída CA: <span id="saidaCA"></span> dB</p>
+            <p>Potência de saída CB: <span id="saidaCB"></span> dB</p>
+            <p>Potência de saída RX: <span id="saidaRX"></span> dB</p>
+        </div>
+    </div>
+    <script>
+        const perdasPassivos = {
+            "two_way": { "out": 4 },
+            "three_way_desb": { "out": 7.5, "out_d": 4 },
+            "three_way": { "out": 6 },
+            "four_way": { "out": 7.5 },
+            "dc6": { "out": 2.5, "tap": 6 },
+            "dc9": { "out": 1.5, "tap": 9 },
+            "dc12": { "out": 1, "tap": 12 },
+            "dc4_12": { "out": 3, "tap": 12 },
+            "dc4_16": { "out": 1.5, "tap": 16 },
+            "mini_isolator": { "out": 1 }
+        };
+
+        let perdaPorMetro = {
+            CA: 0.16,
+            CB: 0.05,
+            RX: 0.02
+        };
+
+        function habilitarEdicao() {
+            document.getElementById('editSection').style.display = 'block';
+            document.getElementById('perdaCAInput').value = perdaPorMetro.CA;
+            document.getElementById('perdaCBInput').value = perdaPorMetro.CB;
+            document.getElementById('perdaRXInput').value = perdaPorMetro.RX;
+        }
+
+        function salvarEdicao() {
+            perdaPorMetro.CA = parseFloat(document.getElementById('perdaCAInput').value) || 0.16;
+            perdaPorMetro.CB = parseFloat(document.getElementById('perdaCBInput').value) || 0.05;
+            perdaPorMetro.RX = parseFloat(document.getElementById('perdaRXInput').value) || 0.02;
+
+            document.getElementById('perdaCAValue').innerText = perdaPorMetro.CA;
+            document.getElementById('perdaCBValue').innerText = perdaPorMetro.CB;
+            document.getElementById('perdaRXValue').innerText = perdaPorMetro.RX;
+
+            document.getElementById('editSection').style.display = 'none';
+        }
+
+        function atualizarPassivos() {
+            let container = document.getElementById('passivosContainer');
+            container.innerHTML = '';
+            let quantidade = parseInt(document.getElementById('quantidadePassivos').value);
+            
+            for (let i = 0; i < quantidade; i++) {
+                let div = document.createElement('div');
+                div.classList.add('input-group');
+                let options = Object.keys(perdasPassivos).map(key => {
+                    let perdaOut = perdasPassivos[key].out || 0;
+                    let nomeFormatado = key.replace(/_/g, ' ').toUpperCase();
+                    return `<option value="${key}">${nomeFormatado} (${perdaOut} dB)</option>`;
+                }).join('');
+                div.innerHTML = `
+                    <label>Componente ${i + 1}:</label>
+                    <select class="passivo" id="passivo_${i}" onchange="atualizarSaidas(${i})">
+                        ${options}
+                    </select>
+                    <label>Saída:</label>
+                    <select id="saida_${i}"></select>
+                `;
+                container.appendChild(div);
+                atualizarSaidas(i);
+            }
+        }
+
+        function atualizarSaidas(index) {
+            let passivo = document.getElementById(`passivo_${index}`).value;
+            let saidaSelect = document.getElementById(`saida_${index}`);
+            saidaSelect.innerHTML = '';
+            
+            let saidasDisponiveis = Object.keys(perdasPassivos[passivo]);
+            saidasDisponiveis.forEach(saida => {
+                let option = document.createElement('option');
+                option.value = saida;
+                option.text = saida.toUpperCase();
+                saidaSelect.appendChild(option);
+            });
+        }
+
+        function calcularPotencia() {
+            let entradaCA = document.getElementById('entradaCA').value;
+            let entradaCB = document.getElementById('entradaCB').value;
+            let entradaRX = document.getElementById('entradaRX').value;
+            let metragem = document.getElementById('metragem').value;
+
+            if (!entradaCA || !entradaCB || !entradaRX || !metragem) {
+                document.getElementById('aviso').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('aviso').style.display = 'none';
+            }
+
+            entradaCA = parseFloat(entradaCA);
+            entradaCB = parseFloat(entradaCB);
+            entradaRX = parseFloat(entradaRX);
+            metragem = parseFloat(metragem);
+            let perdaPassivos = { CA: 0, CB: 0, RX: 0 };
+            let perdaTerminais = parseInt(document.getElementById('quantidadeTerminais').value) * 1;
+
+            document.querySelectorAll('.passivo').forEach((passivoSelect, index) => {
+                let passivo = passivoSelect.value;
+                let saida = document.getElementById(`saida_${index}`).value;
+                let perda = perdasPassivos[passivo][saida] || 0;
+                perdaPassivos.CA += perda;
+                perdaPassivos.CB += perda;
+                perdaPassivos.RX += perda;
+            });
+
+            ['CA', 'CB', 'RX'].forEach(tipo => {
+                let saida = eval(`entrada${tipo}`) - ((metragem * perdaPorMetro[tipo]) + perdaPassivos[tipo] + perdaTerminais);
+                document.getElementById(`saida${tipo}`).innerText = saida.toFixed(2);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+/* Reset básico para garantir consistência entre navegadores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos gerais */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ff4b4b, #ff1c1c);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+}
+
+.input-group input::placeholder,
+.input-group select::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ff1c1c, #ff4b4b);
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #ff4b4b, #ff1c1c);
+}
+
+.aviso {
+    color: #ffcc00;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+    display: none;
+}
+
+.aviso-passivo {
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.edit-section {
+    display: none;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.results {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+.results p {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #fff;
+}
+
+/* Responsividade para smartphones */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    .input-group input,
+    .input-group select,
+    button {
+        font-size: 14px;
+    }
+}
+
+/* Estilo para o recurso "Instalar como aplicativo" */
+@media all and (display-mode: standalone) {
+    body {
+        background: linear-gradient(135deg, #ff1c1c, #ff4b4b);
+    }
+
+    .container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+    }
+}
+
+.input-group select {
+    background: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda sutil */
+    color: #fff; /* Texto branco */
+    border-radius: 8px; /* Bordas arredondadas */
+    padding: 10px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    outline: none; /* Remove o contorno padrão */
+    appearance: none; /* Remove o estilo padrão do navegador */
+    -webkit-appearance: none; /* Para compatibilidade com Safari */
+    -moz-appearance: none; /* Para compatibilidade com Firefox */
+}
+
+.input-group select {
+    background: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Borda sutil */
+    color: #fff; /* Texto branco */
+    border-radius: 8px; /* Bordas arredondadas */
+    padding: 10px; /* Espaçamento interno */
+    font-size: 16px; /* Tamanho da fonte */
+    outline: none; /* Remove o contorno padrão */
+    appearance: none; /* Remove o estilo padrão do navegador */
+    -webkit-appearance: none; /* Para compatibilidade com Safari */
+    -moz-appearance: none; /* Para compatibilidade com Firefox */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+.input-group select option {
+    background: #333; /* Fundo escuro para as opções */
+    color: #fff; /* Texto branco */
+}

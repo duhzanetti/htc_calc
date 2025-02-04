@@ -1,0 +1,22 @@
+{
+    "short_name": "Calculadora FHC",
+    "name": "Calculadora de Potência FHC",
+    "description": "Uma calculadora para calcular perdas de potência em cabos e componentes passivos.",
+    "icons": [
+      {
+        "src": "icon-192x192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "icon-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#ff1c1c",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#ff1c1c"
+  }
